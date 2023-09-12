@@ -545,8 +545,8 @@ average <- function()
             }
         }     
     }
-    print(paste("The average brier score with the second way of testing it is", (total_2/1680)))
-    #runs 420 times, each time making 4 scores
+    print(paste("The average brier score with the second way of testing it is", (total_2/1520)))
+    #runs 380 times, each time making 4 scores
 }
 test <-function(){
     all_states <-c("AK",  "AL", "AR", "AZ",  "CA", "CO",  "CT", "DC", "DE", "FL", "GA",  "HI", "IA", "ID",  "IL", "IN", "KS", "KY", "LA", "ME1", "ME2", "MA",  "MD",  "ME", "MI", "MN", "MO", "MS", "MT", "NE1", "NE2", "NE3", "NC", "ND", "NE", "NH",  "NJ", "NM", "NV",  "NY", "OH", "OK", "OR", "PA",  "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT",  "WA", "WI", "WV", "WY")
@@ -570,7 +570,6 @@ test <-function(){
         }
     }     
     
-    print(paste("The average brier score with the third way of testing it is(CC)", (total_3/420)))
-    #runs 3136 times
+    print(paste("The average brier score with the third way of testing it is(CC)", (total_3/380)))
 
 }
