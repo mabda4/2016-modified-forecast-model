@@ -397,7 +397,7 @@ brier_3edited <- function(state1 = NULL, state2 = NULL, scenario= NULL)
         {
             brier_score <- (predictions_vector[index1] - 1)^2
             brier_score <- brier_score + (predictions_vector[index2] -1)^2
-            brier_score <- brier_score + (win_vector[index1]-1)^2      
+            brier_score <- brier_score + ((win_vector[index1]*predictions_vector[index2])-1)^2      
         }
         else {
 
@@ -417,7 +417,7 @@ brier_3edited <- function(state1 = NULL, state2 = NULL, scenario= NULL)
             {
                 brier_score <- brier_score + (predictions_vector[index2] -0)^2
             }
-            brier_score <- brier_score + (win_vector[index1]-0)^2
+            brier_score <- brier_score + ((win_vector[index1]*predictions_vector[index2])-0)^2
         }
     }
     if(scenario==2)
@@ -426,7 +426,7 @@ brier_3edited <- function(state1 = NULL, state2 = NULL, scenario= NULL)
         {
             brier_score <- ((1-predictions_vector[index1]) - 1)^2
             brier_score <- brier_score + (predictions_vector[index2] -1)^2
-            brier_score <- brier_score + ((1-win_vector[index1])-1)^2    
+            brier_score <- brier_score + (((1-win_vector[index1])*predictions_vector[index2])-1)^2    
         }
         else {
             if(real_scores[index1]==1)
@@ -445,7 +445,7 @@ brier_3edited <- function(state1 = NULL, state2 = NULL, scenario= NULL)
             {
                 brier_score <- brier_score + (predictions_vector[index2] -0)^2
             }
-            brier_score <- brier_score + ((1-win_vector[index1])-0)^2
+            brier_score <- brier_score + (((1-win_vector[index1])*predictions_vector[index2])-0)^2
         }
         }
     
@@ -458,7 +458,7 @@ brier_3edited <- function(state1 = NULL, state2 = NULL, scenario= NULL)
             {
             brier_score <- (predictions_vector[index1] - 1)^2
             brier_score <- brier_score + ((1-predictions_vector[index2]) -1)^2
-            brier_score <- brier_score + (win_vector2[index1]-1)^2  
+            brier_score <- brier_score + ((win_vector2[index1]*(1-predictions_vector[index2]))-1)^2  
         }
         else {
             if(real_scores[index1]==1)
@@ -477,7 +477,7 @@ brier_3edited <- function(state1 = NULL, state2 = NULL, scenario= NULL)
             {
                 brier_score <- brier_score + ((1-predictions_vector[index2]) -0)^2
             }
-            brier_score <- brier_score + (win_vector2[index1]-0)^2
+            brier_score <- brier_score + ((win_vector2[index1]*(1-predictions_vector[index2]))-0)^2
         }
         }
     
@@ -488,7 +488,7 @@ brier_3edited <- function(state1 = NULL, state2 = NULL, scenario= NULL)
             {
             brier_score <- ((1-predictions_vector[index1]) - 1)^2
             brier_score <- brier_score + ((1-predictions_vector[index2]) -1)^2
-            brier_score <- brier_score + ((1-win_vector2[index1])-1)^2  
+            brier_score <- brier_score + (((1-win_vector2[index1])*(1-predictions_vector[index2]))-1)^2  
 
         }
         else {
@@ -508,7 +508,7 @@ brier_3edited <- function(state1 = NULL, state2 = NULL, scenario= NULL)
             {
                 brier_score <- brier_score + ((1-predictions_vector[index2]) -0)^2
             }
-            brier_score <- brier_score + ((1-win_vector2[index1])-0)^2
+            brier_score <- brier_score + (((1-win_vector2[index1])*(1-predictions_vector[index2]))-0)^2
         }
           
     
