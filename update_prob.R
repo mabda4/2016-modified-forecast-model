@@ -517,59 +517,92 @@ brier_3edited <- function(state1 = NULL, state2 = NULL, scenario= NULL)
     brier_score <- brier_score/3
     return(brier_score)
 }
-average <- function()
+# average <- function()
+# {
+#     win_vector <- update_prob_edited()
+#     brier_vector <- (win_vector-real_scores)^2
+#     total <- 0
+#     for (i in 1:56) {
+#         total <- total + brier_vector[i]
+#     }
+#     print(paste("The average state wide brier score is", (total/56)))
+  
+#     all_states <-c("AK",  "AL", "AR", "AZ",  "CA", "CO",  "CT", "DC", "DE", "FL", "GA",  "HI", "IA", "ID",  "IL", "IN", "KS", "KY", "LA", "ME1", "ME2", "MA",  "MD",  "ME", "MI", "MN", "MO", "MS", "MT", "NE1", "NE2", "NE3", "NC", "ND", "NE", "NH",  "NJ", "NM", "NV",  "NY", "OH", "OK", "OR", "PA",  "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT",  "WA", "WI", "WV", "WY")
+#     total_2 <- 0
+#     for (i in 1:56)
+#     {
+#         for (j in 1:56)
+#         {
+#             if(i !=j)
+#             {
+#                 if(j != 1 &&j !=2 &&j !=3 &&j !=5&&j !=7&&j !=8&&j !=9&&j !=12&&j !=14&&j !=15&&j !=16&&j !=17&&j !=18&&j !=19&&j !=20&&j !=22&&j !=23&&j !=29&&j !=30&&j !=31&&j !=32&&j !=33&&j !=34&&j !=35&&j !=37&&j !=40&&j !=42&&j !=43&&j !=45&&j !=47&&j !=48&&j !=50&&j !=52&&j !=53&&j !=55&&j !=56) 
+#                 {
+#                     if(i != 1 &&i !=2 &&i !=3 &&i !=5&&i !=7&&i !=8&&i !=9&&i !=12&&i !=14&&i !=15&&i !=16&&i !=17&&i !=18&&i !=19&&i !=20&&i !=22&&i !=23&&i !=29&&i !=30&&i !=31&&i !=32&&i !=33&&i !=34&&i !=35&&i !=37&&i !=40&&i !=42&&i !=43&&i !=45&&i !=47&&i !=48&&i !=50&&i !=52&&i !=53&&i !=55&&i !=56) 
+#                     {   
+#                         total_2 <-  total_2 + brier_2edited(state1 = all_states[i], state2= all_states[j])
+#                     }
+#                 }
+#             }
+#         }     
+#     }
+#     print(paste("The average brier score with the second way of testing it is", (total_2/1520)))
+#     #runs 380 times, each time making 4 scores
+# }
+# test <-function(){
+#     all_states <-c("AK",  "AL", "AR", "AZ",  "CA", "CO",  "CT", "DC", "DE", "FL", "GA",  "HI", "IA", "ID",  "IL", "IN", "KS", "KY", "LA", "ME1", "ME2", "MA",  "MD",  "ME", "MI", "MN", "MO", "MS", "MT", "NE1", "NE2", "NE3", "NC", "ND", "NE", "NH",  "NJ", "NM", "NV",  "NY", "OH", "OK", "OR", "PA",  "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT",  "WA", "WI", "WV", "WY")
+#     total_3 <- 0
+
+#     for (i in 1:56)
+#     {
+#         for (j in 1:56)
+#         {
+#             if(i !=j)
+#             {
+#                 if(j != 1 &&j !=2 &&j !=3 &&j !=5&&j !=7&&j !=8&&j !=9&&j !=12&&j !=14&&j !=15&&j !=16&&j !=17&&j !=18&&j !=19&&j !=20&&j !=22&&j !=23&&j !=29&&j !=30&&j !=31&&j !=32&&j !=33&&j !=34&&j !=35&&j !=37&&j !=40&&j !=42&&j !=43&&j !=45&&j !=47&&j !=48&&j !=50&&j !=52&&j !=53&&j !=55&&j !=56) 
+#                 {
+#                     if(i != 1 &&i !=2 &&i !=3 &&i !=5&&i !=7&&i !=8&&i !=9&&i !=12&&i !=14&&i !=15&&i !=16&&i !=17&&i !=18&&i !=19&&i !=20&&i !=22&&i !=23&&i !=29&&i !=30&&i !=31&&i !=32&&i !=33&&i !=34&&i !=35&&i !=37&&i !=40&&i !=42&&i !=43&&i !=45&&i !=47&&i !=48&&i !=50&&i !=52&&i !=53&&i !=55&&i !=56) 
+#                     {
+#                         print(i)
+#                         total_3 <-  total_3 + brier_3edited(state1 = all_states[i], state2= all_states[j], scenario = 3)
+#                     }
+#                 }
+#             }
+#         }
+#     }     
+    
+#     print(paste("The average brier score with the third way of testing it is(CT)", (total_3/380)))
+#     #runs 3136 times
+
+# }
+
+a <-function()
 {
+
+    sink("./FiveThirtyEight-2020-brier1.txt", append = T)
+    all_states <- c("AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "IA",
+                    "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO",
+                    "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK",
+                    "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI",
+                    "WV", "WY", "ME1", "ME2", "DC", "NE1", "NE2", "NE3")
+    real_scores <-c("AK"=0,  "AL"=0, "AR"=0, "AZ"=0,  "CA"=1, "CO"=1,  "CT"=1,  "DE"=1, "FL"=0, "GA"=0,  "HI"=1, "IA"=0, "ID"=0,  "IL"=1, "IN"=0, "KS"=0, "KY"=0, "LA"=0,  "MA"=1,  "MD"=1,  "ME"=1, "MI"=0, "MN"=1, "MO"=0, "MS"=0, "MT"=0, "NC"=0, "ND"=0, "NE"=0, "NH"=1,  "NJ"=1, "NM"=1, "NV"=1,  "NY"=1, "OH"=0, "OK"=0, "OR"=1, "PA"=0,  "RI"=1, "SC"=0, "SD"=0, "TN"=0, "TX"=0, "UT"=0, "VA"=1, "VT"=1,  "WA"=1, "WI"=0, "WV"=0, "WY"=0, "ME1"=1, "ME2"=0,  "DC"=1, "NE1"=0, "NE2"=0, "NE3"=0)
+
     win_vector <- update_prob_edited()
     brier_vector <- (win_vector-real_scores)^2
+
     total <- 0
+    cat("State: Win Prob: Outcome: Brier Score: \n")
     for (i in 1:56) {
-        total <- total + brier_vector[i]
+        #if(i!=0 && i!=1&& i!=2&& i!=3&& i!=5&& i!=7&& i!=8&& i!=11&& i!=13&& i!=14&& i!=15&& i!=16&& i!=17&& i!=18&& i!=19&& i!=20&& i!=26&& i!=28&& i!=29&& i!=31&& i!=34&& i!=36&& i!=37&& i!=39&& i!=41&& i!=42&& i!=44&& i!=46&& i!=47&& i!=49&& i!=50&& i!=51&& i!=53&& i!=54&& i!=56)
+        #{
+            cat(all_states[i], win_vector[i], real_scores[i], brier_vector[i], "\n")
+            total <- total + brier_vector[i]
+        #}
     }
-    print(paste("The average state wide brier score is", (total/56)))
-  
-    all_states <-c("AK",  "AL", "AR", "AZ",  "CA", "CO",  "CT", "DC", "DE", "FL", "GA",  "HI", "IA", "ID",  "IL", "IN", "KS", "KY", "LA", "ME1", "ME2", "MA",  "MD",  "ME", "MI", "MN", "MO", "MS", "MT", "NE1", "NE2", "NE3", "NC", "ND", "NE", "NH",  "NJ", "NM", "NV",  "NY", "OH", "OK", "OR", "PA",  "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT",  "WA", "WI", "WV", "WY")
-    total_2 <- 0
-    for (i in 1:56)
-    {
-        for (j in 1:56)
-        {
-            if(i !=j)
-            {
-                if(j != 1 &&j !=2 &&j !=3 &&j !=5&&j !=7&&j !=8&&j !=9&&j !=12&&j !=14&&j !=15&&j !=16&&j !=17&&j !=18&&j !=19&&j !=20&&j !=22&&j !=23&&j !=29&&j !=30&&j !=31&&j !=32&&j !=33&&j !=34&&j !=35&&j !=37&&j !=40&&j !=42&&j !=43&&j !=45&&j !=47&&j !=48&&j !=50&&j !=52&&j !=53&&j !=55&&j !=56) 
-                {
-                    if(i != 1 &&i !=2 &&i !=3 &&i !=5&&i !=7&&i !=8&&i !=9&&i !=12&&i !=14&&i !=15&&i !=16&&i !=17&&i !=18&&i !=19&&i !=20&&i !=22&&i !=23&&i !=29&&i !=30&&i !=31&&i !=32&&i !=33&&i !=34&&i !=35&&i !=37&&i !=40&&i !=42&&i !=43&&i !=45&&i !=47&&i !=48&&i !=50&&i !=52&&i !=53&&i !=55&&i !=56) 
-                    {   
-                        total_2 <-  total_2 + brier_2edited(state1 = all_states[i], state2= all_states[j])
-                    }
-                }
-            }
-        }     
-    }
-    print(paste("The average brier score with the second way of testing it is", (total_2/1520)))
-    #runs 380 times, each time making 4 scores
-}
-test <-function(){
-    all_states <-c("AK",  "AL", "AR", "AZ",  "CA", "CO",  "CT", "DC", "DE", "FL", "GA",  "HI", "IA", "ID",  "IL", "IN", "KS", "KY", "LA", "ME1", "ME2", "MA",  "MD",  "ME", "MI", "MN", "MO", "MS", "MT", "NE1", "NE2", "NE3", "NC", "ND", "NE", "NH",  "NJ", "NM", "NV",  "NY", "OH", "OK", "OR", "PA",  "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT",  "WA", "WI", "WV", "WY")
-    total_3 <- 0
+    cat("The average state wide brier score is", (total/56))
 
-    for (i in 1:56)
-    {
-        for (j in 1:56)
-        {
-            if(i !=j)
-            {
-                if(j != 1 &&j !=2 &&j !=3 &&j !=5&&j !=7&&j !=8&&j !=9&&j !=12&&j !=14&&j !=15&&j !=16&&j !=17&&j !=18&&j !=19&&j !=20&&j !=22&&j !=23&&j !=29&&j !=30&&j !=31&&j !=32&&j !=33&&j !=34&&j !=35&&j !=37&&j !=40&&j !=42&&j !=43&&j !=45&&j !=47&&j !=48&&j !=50&&j !=52&&j !=53&&j !=55&&j !=56) 
-                {
-                    if(i != 1 &&i !=2 &&i !=3 &&i !=5&&i !=7&&i !=8&&i !=9&&i !=12&&i !=14&&i !=15&&i !=16&&i !=17&&i !=18&&i !=19&&i !=20&&i !=22&&i !=23&&i !=29&&i !=30&&i !=31&&i !=32&&i !=33&&i !=34&&i !=35&&i !=37&&i !=40&&i !=42&&i !=43&&i !=45&&i !=47&&i !=48&&i !=50&&i !=52&&i !=53&&i !=55&&i !=56) 
-                    {
-                        print(i)
-                        total_3 <-  total_3 + brier_3edited(state1 = all_states[i], state2= all_states[j], scenario = 1)
-                    }
-                }
-            }
-        }
-    }     
-    
-    print(paste("The average brier score with the third way of testing it is(CC)", (total_3/380)))
 
+
+
+    sink()
 }
+
