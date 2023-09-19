@@ -578,7 +578,7 @@ brier_3edited <- function(state1 = NULL, state2 = NULL, scenario= NULL)
 a <-function()
 {
 
-    sink("./FiveThirtyEight-2020-brier1.txt", append = T)
+    sink("./pkremp-2016-brier1.txt", append = T)
     all_states <- c("AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "IA",
                     "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO",
                     "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK",
