@@ -364,12 +364,12 @@ brier_2edited <- function(state2 = NULL)
                 if( real_scores[i]==1 &&real_scores[index2]==1)
                 {
                     b <-((predictions_vector[index2]* win_vector[i])-1)^2
-                    brier_score <- b
+                    brier_score <- b +brier_score
                     cat(all_states[i], state2, "CC" ,predictions_vector[i], win_vector[i], predictions_vector[index2], real_scores[i], real_scores[index2], b, "\n")
                 }
                 else {
                     b<-((predictions_vector[index2]* win_vector[i])-0)^2
-                    brier_score <- b
+                    brier_score <- b +brier_score
                     cat(all_states[i], state2, "CC" ,predictions_vector[i], win_vector[i], predictions_vector[index2], real_scores[i], real_scores[index2], b, "\n")
                 }
 
