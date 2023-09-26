@@ -416,141 +416,161 @@ brier_2edited <- function(state2 = NULL)
     return(brier_score)
 }
 
-brier_3edited <- function(state1 = NULL, state2 = NULL, scenario= NULL)
+brier_3edited <- function(state2 = NULL, scenario= NULL)
 {
-    index1 <- which(names(real_scores) %in% state1)
     index2 <- which(names(real_scores) %in% state2)
     predictions_vector <- update_prob_edited()
     win_vector <- update_prob_edited(state2)
     win_vector2 <- update_prob_edited(NULL, state2)
     brier_score <-0
+    total <- 0
 
+    all_states <- c("AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "IA",
+                    "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO",
+                    "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK",
+                    "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI",
+                    "WV", "WY", "ME1", "ME2", "DC", "NE1", "NE2", "NE3")
 
-        if(scenario==1)
-    {
-        if( real_scores[index1]==1 &&real_scores[index2]==1)
-        {
-            brier_score <- (predictions_vector[index1] - 1)^2
-            brier_score <- brier_score + (predictions_vector[index2] -1)^2
-            brier_score <- brier_score + ((win_vector[index1]*predictions_vector[index2])-1)^2      
-        }
-        else {
-
-            if(real_scores[index1]==1)
-            {
-                brier_score <- (predictions_vector[index1] - 1)^2
-            }
-            else
-            {
-                brier_score <- (predictions_vector[index1] - 0)^2
-            }
-            if(real_scores[index2]==1)
-            {
-                brier_score <- brier_score + (predictions_vector[index2] -1)^2
-            }
-            else
-            {
-                brier_score <- brier_score + (predictions_vector[index2] -0)^2
-            }
-            brier_score <- brier_score + ((win_vector[index1]*predictions_vector[index2])-0)^2
-        }
-    }
-    if(scenario==2)
-    {
-        if( real_scores[index1]==0 &&real_scores[index2]==1)
-        {
-            brier_score <- ((1-predictions_vector[index1]) - 1)^2
-            brier_score <- brier_score + (predictions_vector[index2] -1)^2
-            brier_score <- brier_score + (((1-win_vector[index1])*predictions_vector[index2])-1)^2    
-        }
-        else {
-            if(real_scores[index1]==1)
-            {
-                brier_score <- ((1-predictions_vector[index1]) - 1)^2
-            }
-            else
-            {
-                brier_score <- ((1-predictions_vector[index1]) - 0)^2
-            }
-            if(real_scores[index2]==1)
-            {
-                brier_score <- brier_score + (predictions_vector[index2] -1)^2
-            }
-            else
-            {
-                brier_score <- brier_score + (predictions_vector[index2] -0)^2
-            }
-            brier_score <- brier_score + (((1-win_vector[index1])*predictions_vector[index2])-0)^2
-        }
-        }
-    
-    
-    
-    if(scenario==3)
+    for(i in 1:56)
     {
         
-        if( real_scores[index1]==1 &&real_scores[index2]==0)
+        if(i!=index2)
+        {
+            if(i!=0 && i!=1&& i!=2&& i!=3&& i!=5&& i!=7&& i!=8&& i!=11&& i!=13&& i!=14&& i!=15&& i!=16&& i!=17&& i!=18&& i!=19&& i!=20&& i!=26&& i!=28&& i!=29&& i!=31&& i!=34&& i!=36&& i!=37&& i!=39&& i!=41&& i!=42&& i!=44&& i!=46&& i!=47&& i!=49&& i!=50&& i!=51&& i!=53&& i!=54&& i!=56)
             {
-            brier_score <- (predictions_vector[index1] - 1)^2
-            brier_score <- brier_score + ((1-predictions_vector[index2]) -1)^2
-            brier_score <- brier_score + ((win_vector2[index1]*(1-predictions_vector[index2]))-1)^2  
-        }
-        else {
-            if(real_scores[index1]==1)
+                cat(all_states[i], state2, "")
+        if(scenario==1)
+        {
+                cat(predictions_vector[i], win_vector[i], predictions_vector[index2],"")
+            if( real_scores[i]==1 &&real_scores[index2]==1)
             {
-                brier_score <- (predictions_vector[index1] - 1)^2
+                b1 <- (predictions_vector[i] - 1)^2
+                b2 <-   (predictions_vector[index2] -1)^2
+                b3 <-   ((win_vector[i]*predictions_vector[index2])-1)^2      
             }
-            else
-            {
-                brier_score <- (predictions_vector[index1] - 0)^2
-            }
-            if(real_scores[index2]==1)
-            {
-                brier_score <- brier_score + ((1-predictions_vector[index2]) -1)^2
-            }
-            else
-            {
-                brier_score <- brier_score + ((1-predictions_vector[index2]) -0)^2
-            }
-            brier_score <- brier_score + ((win_vector2[index1]*(1-predictions_vector[index2]))-0)^2
-        }
-        }
-    
-    
-    if(scenario==4)
-    {
-        if( real_scores[index1]==0 &&real_scores[index2]==0)
-            {
-            brier_score <- ((1-predictions_vector[index1]) - 1)^2
-            brier_score <- brier_score + ((1-predictions_vector[index2]) -1)^2
-            brier_score <- brier_score + (((1-win_vector2[index1])*(1-predictions_vector[index2]))-1)^2  
+            else {
 
+                if(real_scores[i]==1)
+                {
+                    b1 <- (predictions_vector[i] - 1)^2
+                }
+                else
+                {
+                    b1 <- (predictions_vector[i] - 0)^2
+                }
+                if(real_scores[index2]==1)
+                {
+                    b2 <-   (predictions_vector[index2] -1)^2
+                }
+                else
+                {
+                    b2 <-   (predictions_vector[index2] -0)^2
+                }
+                b3 <-  ((win_vector[i]*predictions_vector[index2])-0)^2
+            }
         }
-        else {
-            if(real_scores[index1]==1)
+        if(scenario==2)
+        {
+            cat((1-predictions_vector[i]), (1-win_vector[i]), predictions_vector[index2],"")
+            if( real_scores[i]==0 &&real_scores[index2]==1)
             {
-                brier_score <- ((1-predictions_vector[index1]) - 1)^2
+                b1 <- ((1-predictions_vector[i]) - 1)^2
+                b2 <-  (predictions_vector[index2] -1)^2
+                b3 <- (((1-win_vector[i])*predictions_vector[index2])-1)^2    
             }
-            else
-            {
-                brier_score <- ((1-predictions_vector[index1]) - 0)^2
+            else {
+                if(real_scores[i]==1)
+                {
+                    b1 <- ((1-predictions_vector[i]) - 1)^2
+                }
+                else
+                {
+                    b1 <- ((1-predictions_vector[i]) - 0)^2
+                }
+                if(real_scores[index2]==1)
+                {
+                    b2 <-   (predictions_vector[index2] -1)^2
+                }
+                else
+                {
+                    b2 <-  (predictions_vector[index2] -0)^2
+                }
+                b3 <-  (((1-win_vector[i])*predictions_vector[index2])-0)^2
             }
-            if(real_scores[index2]==1)
-            {
-                brier_score <- brier_score + ((1-predictions_vector[index2]) -1)^2
             }
-            else
-            {
-                brier_score <- brier_score + ((1-predictions_vector[index2]) -0)^2
+        
+        
+        
+        if(scenario==3)
+        {
+            cat(predictions_vector[i], win_vector2[i], (1-predictions_vector[index2]),"")
+            if( real_scores[i]==1 &&real_scores[index2]==0)
+                {
+                b1 <- (predictions_vector[i] - 1)^2
+                b2 <- ((1-predictions_vector[index2]) -1)^2
+                b3 <- ((win_vector2[i]*(1-predictions_vector[index2]))-1)^2  
             }
-            brier_score <- brier_score + (((1-win_vector2[index1])*(1-predictions_vector[index2]))-0)^2
+            else {
+                if(real_scores[i]==1)
+                {
+                    b1 <- (predictions_vector[i] - 1)^2
+                }
+                else
+                {
+                    b1 <- (predictions_vector[i] - 0)^2
+                }
+                if(real_scores[index2]==1)
+                {
+                    b2 <-  ((1-predictions_vector[index2]) -1)^2
+                }
+                else
+                {
+                    b2 <- ((1-predictions_vector[index2]) -0)^2
+                }
+                b3 <-  ((win_vector2[i]*(1-predictions_vector[index2]))-0)^2
+            }
+            }
+        
+        
+        if(scenario==4)
+        {
+            cat((1-predictions_vector[i]), (1-win_vector2[i]), (1-predictions_vector[index2]),"")
+            if( real_scores[i]==0 &&real_scores[index2]==0)
+                {
+                b1 <- ((1-predictions_vector[i]) - 1)^2
+                b2 <- ((1-predictions_vector[index2]) -1)^2
+                b3 <-  (((1-win_vector2[i])*(1-predictions_vector[index2]))-1)^2  
+
+            }
+            else {
+                if(real_scores[i]==1)
+                {
+                    b1 <- ((1-predictions_vector[i]) - 1)^2
+                }
+                else
+                {
+                    b1 <- ((1-predictions_vector[i]) - 0)^2
+                }
+                if(real_scores[index2]==1)
+                {
+                    b2 <- ((1-predictions_vector[index2]) -1)^2
+                }
+                else
+                {
+                    b2 <-  ((1-predictions_vector[index2]) -0)^2
+                }
+                b3 <- (((1-win_vector2[i])*(1-predictions_vector[index2]))-0)^2
+            }
+            
+        
         }
-          
     
-    }
-    
-    brier_score <- brier_score/3
-    return(brier_score)
+    brier_score <- b1 +b2+b3
+    brier_score <- brier_score/3 
+    total <- brier_score +total
+    cat(real_scores[i], real_scores[index2], b1, b2,b3, brier_score, "\n")
+    }}}
+    return(total)
 }
 # average <- function()
 # {
@@ -646,10 +666,6 @@ b <-function()
                     "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK",
                     "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI",
                     "WV", "WY", "ME1", "ME2", "DC", "NE1", "NE2", "NE3")
-    real_scores <-c("AK"=0,  "AL"=0, "AR"=0, "AZ"=0,  "CA"=1, "CO"=1,  "CT"=1,  "DE"=1, "FL"=0, "GA"=0,  "HI"=1, "IA"=0, "ID"=0,  "IL"=1, "IN"=0, "KS"=0, "KY"=0, "LA"=0,  "MA"=1,  "MD"=1,  "ME"=1, "MI"=0, "MN"=1, "MO"=0, "MS"=0, "MT"=0, "NC"=0, "ND"=0, "NE"=0, "NH"=1,  "NJ"=1, "NM"=1, "NV"=1,  "NY"=1, "OH"=0, "OK"=0, "OR"=1, "PA"=0,  "RI"=1, "SC"=0, "SD"=0, "TN"=0, "TX"=0, "UT"=0, "VA"=1, "VT"=1,  "WA"=1, "WI"=0, "WV"=0, "WY"=0, "ME1"=1, "ME2"=0,  "DC"=1, "NE1"=0, "NE2"=0, "NE3"=0)
-
-    win_vector <- update_prob_edited()
-    brier_vector <- (win_vector-real_scores)^2
 
     total <- 0
     cat("State1: State2: Scenario: Win Prob(State1): Conditional Prob(State1): Win Prob(State2): Outcome1: Outcome2: Brier Score: \n")
@@ -664,3 +680,25 @@ b <-function()
     sink()
 }
 
+d <-function()
+{
+
+    sink("./pkremp-2016-brier3-TT.txt", append = T)
+    all_states <- c("AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "IA",
+                    "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO",
+                    "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK",
+                    "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI",
+                    "WV", "WY", "ME1", "ME2", "DC", "NE1", "NE2", "NE3")
+
+    total <- 0
+    cat("State1: State2: Win Prob(State1): Conditional Prob(State1): Win Prob(State2): Outcome1: Outcome2: Brier Score(State1): Brier Score(State2): Brier Score(Conditional): Brier Score(Average)\n")
+    for (i in 1:56) {
+        if(i!=0 && i!=1&& i!=2&& i!=3&& i!=5&& i!=7&& i!=8&& i!=11&& i!=13&& i!=14&& i!=15&& i!=16&& i!=17&& i!=18&& i!=19&& i!=20&& i!=26&& i!=28&& i!=29&& i!=31&& i!=34&& i!=36&& i!=37&& i!=39&& i!=41&& i!=42&& i!=44&& i!=46&& i!=47&& i!=49&& i!=50&& i!=51&& i!=53&& i!=54&& i!=56)
+            {
+                total <-  total + brier_3edited(state2= all_states[i], scenario = 4)
+            }   
+        }
+    
+    cat("The average brier score with the third way of testing it is(TT)", (total/462))
+    sink()
+}
