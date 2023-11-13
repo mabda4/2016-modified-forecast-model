@@ -739,7 +739,7 @@ shares <-function()
 
 shares_3 <- function()
 {
-   clinton_states = NULL
+    clinton_states = NULL
     trump_states = NULL 
     clinton_scores_list = NULL 
     target_nsim = 1000
@@ -749,9 +749,11 @@ shares_3 <- function()
     sim <- draw_samples(clinton_states = clinton_states, trump_states = trump_states, states = states, 
                         upper_clinton = upper_clinton, lower_clinton = lower_clinton, 
                         target_nsim = target_nsim)
-    ev_dist <- (sim[["matrix"]] > .5) %*% ev
-    state_win <- colMeans(sim[["matrix"]] > .5)
+                        
     shares_vector <- colMeans(sim[["matrix"]])
+    
+
+
     real_shares <-c("AK"=37.6,  "AL"=34.7, "AR"=33.7, "AZ"=45.5,  "CA"=62.3, "CO"=48.2,  "CT"=54.7,  "DE"=53.4, "FL"=47.8, "GA"=45.9,  "HI"=62.2, "IA"=42.2, "ID"=27.5,  "IL"=56, "IN"=37.9, "KS"=36.3, "KY"=32.7, "LA"=38.4,  "MA"=61,  "MD"=61.3,  "ME"=48, "MI"=47.4, "MN"=46.9, "MO"=38.2, "MS"=40.1, "MT"=35.9, "NC"=46.8, "ND"=27.7, "NE"=34.4, "NH"=47.6,  "NJ"=55.5, "NM"=48.3, "NV"=47.9,  "NY"=59.5, "OH"=43.7, "OK"=28.9, "OR"=52, "PA"=47.9,  "RI"=55.5, "SC"=40.7, "SD"=31.7, "TN"=34.9, "TX"=43.5, "UT"=27.5, "VA"=50.2, "VT"=61.6,  "WA"=54.3, "WI"=47, "WV"=26.5, "WY"=22.5, "ME1"=0, "ME2"=0,  "DC"=92.8, "NE1"=0, "NE2"=0, "NE3"=0)
     real_shares = real_shares *.01
     total <- 0
@@ -766,11 +768,23 @@ shares_3 <- function()
                 {
                     if(i!=j)
                     {
+                        
+                        values_i <- sim[[i]]
+                        values_j <- sim[[j]]
+                        abs1 <- abs(values_i/2 - 0.50)
+                        abs2 <- abs(values_j/2 - 0.50)
+                        shares_vector3 <- abs1* abs2
+                        #shares_vector3 <- round(apply(shares_vector3, 2, mean), 2) #gives me an error
+                        print(shares_vector3)
+
+
+
+
                         brier <- ((shares_vector[i]-real_shares[i])^2)
                         brier <- brier + ((shares_vector[j]-real_shares[j])^2)
-                        brier <- brier + ((shares_vector[i]^2-real_shares[i]^2)^2)
-                        brier <- brier + ((shares_vector[j]^2-real_shares[j]^2)^2)
-                        brier <- brier + (((shares_vector[i]*shares_vector[j])-(real_shares[i]*real_shares[j]))^2)
+                        brier <- brier + ((shares_vector2[i]-(real_shares[i]^2))^2)
+                        brier <- brier + ((shares_vector2[j]-(real_shares[j]^2))^2)
+                        brier <- brier + (((shares_vector3)-(real_shares[i]*real_shares[j]))^2)
                         brier <- brier/5
                         total <- total + brier
                     }
