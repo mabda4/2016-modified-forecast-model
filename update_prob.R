@@ -26,9 +26,7 @@ sim_forecast <- cbind(sim_forecast, # Taking the 2012 delta with ME and NE state
                       "NE1" = sim_forecast[,"NE"] + rnorm(nrow(sim_forecast),  .03, .0075),
                       "NE2" = sim_forecast[,"NE"] + rnorm(nrow(sim_forecast),  .08, .0075),
                       "NE3" = sim_forecast[,"NE"] + rnorm(nrow(sim_forecast), -.10, .0075))
-
 ev <- ev[colnames(sim_forecast)]
-
 Sigma <- cov(logit(sim_forecast))
 mu <- colMeans(logit(sim_forecast))
 names(mu) <- colnames(sim_forecast)
@@ -749,9 +747,7 @@ shares_3 <- function()
     sim <- draw_samples(clinton_states = clinton_states, trump_states = trump_states, states = states, 
                         upper_clinton = upper_clinton, lower_clinton = lower_clinton, 
                         target_nsim = target_nsim)
-                        
     shares_vector <- colMeans(sim[["matrix"]])
-    
 
 
     real_shares <-c("AK"=37.6,  "AL"=34.7, "AR"=33.7, "AZ"=45.5,  "CA"=62.3, "CO"=48.2,  "CT"=54.7,  "DE"=53.4, "FL"=47.8, "GA"=45.9,  "HI"=62.2, "IA"=42.2, "ID"=27.5,  "IL"=56, "IN"=37.9, "KS"=36.3, "KY"=32.7, "LA"=38.4,  "MA"=61,  "MD"=61.3,  "ME"=48, "MI"=47.4, "MN"=46.9, "MO"=38.2, "MS"=40.1, "MT"=35.9, "NC"=46.8, "ND"=27.7, "NE"=34.4, "NH"=47.6,  "NJ"=55.5, "NM"=48.3, "NV"=47.9,  "NY"=59.5, "OH"=43.7, "OK"=28.9, "OR"=52, "PA"=47.9,  "RI"=55.5, "SC"=40.7, "SD"=31.7, "TN"=34.9, "TX"=43.5, "UT"=27.5, "VA"=50.2, "VT"=61.6,  "WA"=54.3, "WI"=47, "WV"=26.5, "WY"=22.5, "ME1"=0, "ME2"=0,  "DC"=92.8, "NE1"=0, "NE2"=0, "NE3"=0)
