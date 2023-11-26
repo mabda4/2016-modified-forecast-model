@@ -433,7 +433,7 @@ brier_3edited <- function(state2 = NULL, scenario= NULL)
         
         if(i!=index2)
         {
-            if(i!=0 && i!=1&& i!=2&& i!=3&& i!=5&& i!=7&& i!=8&& i!=11&& i!=13&& i!=14&& i!=15&& i!=16&& i!=17&& i!=18&& i!=19&& i!=20&& i!=26&& i!=28&& i!=29&& i!=31&& i!=34&& i!=36&& i!=37&& i!=39&& i!=41&& i!=42&& i!=44&& i!=46&& i!=47&& i!=49&& i!=50&& i!=51&& i!=52 && i!=53&& i!=54&& i!=55&&i!=56)
+        if(i!=0 && i!=1&& i!=2&& i!=3&& i!=5&& i!=7&& i!=8&& i!=11&& i!=13&& i!=14&& i!=15&& i!=16&& i!=17&& i!=18&& i!=19&& i!=20&& i!=26&& i!=28&& i!=29&& i!=31&& i!=34&& i!=36&& i!=37&& i!=39&& i!=41&& i!=42&& i!=44&& i!=46&& i!=47&& i!=49&& i!=50&& i!=51&& i!=52 && i!=53&& i!=54&& i!=55 && i!=56)
             {
                 cat(all_states[i], state2, "")
         if(scenario==1)
@@ -682,7 +682,7 @@ b <-function()
 d <-function()
 {
 
-    sink("./pkremp-2016-brier3-CT.txt", append = T)
+    sink("./pkremp-2016-brier3-TT.txt", append = T)
     all_states <- c("AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "IA",
                     "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO",
                     "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK",
@@ -692,13 +692,13 @@ d <-function()
     total <- 0
     cat("State1: State2: Win Prob(State1): Conditional Prob(State1): Win Prob(State2): Outcome1: Outcome2: Brier Score(State1): Brier Score(State2): Brier Score(Conditional): Brier Score(Average)\n")
     for (i in 1:56) {
-        if(i!=0 && i!=1&& i!=2&& i!=3&& i!=5&& i!=7&& i!=8&& i!=11&& i!=13&& i!=14&& i!=15&& i!=16&& i!=17&& i!=18&& i!=19&& i!=20&& i!=26&& i!=28&& i!=29&& i!=31&& i!=34&& i!=36&& i!=37&& i!=39&& i!=41&& i!=42&& i!=44&& i!=46&& i!=47&& i!=49&& i!=50&& i!=51&& i!=53&& i!=54&& i!=56)
+        if(i!=0 && i!=1&& i!=2&& i!=3&& i!=5&& i!=7&& i!=8&& i!=11&& i!=13&& i!=14&& i!=15&& i!=16&& i!=17&& i!=18&& i!=19&& i!=20&& i!=26&& i!=28&& i!=29&& i!=31&& i!=34&& i!=36&& i!=37&& i!=39&& i!=41&& i!=42&& i!=44&& i!=46&& i!=47&& i!=49&& i!=50&& i!=51&& i!=52 && i!=53&& i!=54&& i!=55 && i!=56)
             {
-                total <-  total + brier_3edited(state2= all_states[i], scenario = 3)
+                total <-  total + brier_3edited(state2= all_states[i], scenario = 4)
             }   
         }
     
-    cat("The average brier score with the third way of testing it is(CT)", (total/420))
+    cat("The average brier score with the third way of testing it is(TT)", (total/380))
     sink()
 }
 
